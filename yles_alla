@@ -9,7 +9,7 @@ clock = pygame.time.Clock()
 black = (0,0,0)
 white = (255,255,255)
 
-rocket = pygame.image.load("rocket.png").convert_alpha() # panin pildi ka eraldi
+rocket = pygame.image.load("rocket.png").convert_alpha() # pildi pead ise võtma
 
 x, y = 100,100
 moveX, moveY= 0,0
