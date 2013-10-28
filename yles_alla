@@ -10,6 +10,7 @@ black = (0,0,0)
 white = (255,255,255)
 
 rocket = pygame.image.load("rocket.png").convert_alpha() # pildi pead ise võtma
+# pildi link: http://img.rfclipart.com/image/small/f1-2f-fc/metal-rocket-launch-made-with-gradient-mesh-Download-Royalty-free-Vector-File-EPS-19759.jpg
 
 x, y = 100,100
 moveX, moveY= 0,0
