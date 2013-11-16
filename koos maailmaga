@@ -1,0 +1,55 @@
+import pygame
+pygame.init()
+
+window=pygame.display.set_mode((600,200))
+pygame.display.set_caption('window')
+
+clock = pygame.time.Clock()
+
+black = (0,0,0)
+white = (255,255,255)
+
+#pildid
+rocket = pygame.image.load("rocket.png").convert_alpha()
+backround = pygame.image.load("backround.png")
+
+#kopter
+x, y = 100,100
+moveX, moveY= 0,0
+
+#taust
+bgX = 0
+scrolling = True
+
+loop = True
+while loop:
+    
+    for event in pygame.event.get():
+        if event.type==pygame.QUIT:
+            loop = False
+        # kopteri liigutamine
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            moveY = -5
+        if event.type == pygame.MOUSEBUTTONUP:
+            moveY = 5
+            
+    window.fill(white)
+    window.blit(backround, (bgX,0))
+    # maailma liikumine
+    if scrolling == True:
+        bgX -= 2
+    if bgX == -1200: # proovi seda muuta -1200 pealt -600, siis seda vahet ei teki
+        scrolling = False
+    if scrolling == False:
+        bgX = 0
+    if bgX == 0:
+        scrolling =True
+    window.blit(rocket, (x,y))
+    
+    y += moveY
+  
+    clock.tick(50) # muutes seda numbrit saab tõsta ja langetada kiirust
+    
+    pygame.display.flip()
+
+pygame.quit()
