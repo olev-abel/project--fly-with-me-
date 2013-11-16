@@ -12,6 +12,7 @@ white = (255,255,255)
 #pildid
 rocket = pygame.image.load("rocket.png").convert_alpha()
 backround = pygame.image.load("backround.png")
+# tausta saad siit: http://www.upload.ee/image/3709212/backround.png
 
 #kopter
 x, y = 100,100
