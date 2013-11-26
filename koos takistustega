@@ -1,0 +1,78 @@
+import pygame
+import random
+pygame.init()
+
+window=pygame.display.set_mode((600,200))
+pygame.display.set_caption('window')
+
+clock = pygame.time.Clock()
+takistused_kell=100
+takistused_kell1=0
+takistused=[[640,50]]# esimene takistus
+
+black = (0,0,0)
+white = (255,255,255)
+
+#pildid
+rocket = pygame.image.load("Rocket.jpg").convert_alpha()
+backround = pygame.image.load("backround.png")
+kivi=pygame.image.load("kivi1.png")
+# kivi saad siit, ma resizesin seda vähe http://img200.imageshack.us/img200/8732/rock2f.png
+# tausta saad siit: http://www.upload.ee/image/3709212/backround.png
+
+#rakett
+x, y = 100,100
+moveX, moveY= 0,0
+
+#taust
+bgX = 0
+scrolling = True
+
+loop = True
+while loop:
+    takistused_kell-=1#et takistused tuleksid koguaeg kindla aja tagant
+    for event in pygame.event.get():
+        if event.type==pygame.QUIT:
+            loop = False
+        # raketi liigutamine
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            moveY = -5
+        if event.type == pygame.MOUSEBUTTONUP:
+            moveY = 5
+            
+    window.fill(white)
+    window.blit(backround, (bgX,0))
+    if takistused_kell==0:
+        takistused.append([640, random.randint(70,100)])#listi panek y random 70 ja 100 vahel
+        takistused_kell=120-(takistused_kell1*1.4)# takistuste ilmumiskiirus
+        if takistused_kell1>=35:
+            takistused_kell1=35
+        else:
+            takistused_kell1+=5
+    indeks=0
+    for takistus in takistused:
+        if takistus[0]<-64:
+            takistused.pop(indeks)# võtab takistuse ära listist, kui takistuse x koordinaat on -64 väiksem ehk takistus kadunud
+        takistus[0]-=7
+        indeks=1
+
+    for takistus in takistused:
+        window.blit(kivi, takistus)
+    # maailma liikumine
+    if scrolling == True:
+        bgX -= 2
+    if bgX == -610: # proovides timmida,ei saa asja ikkagi sujuvaks
+        scrolling = False
+    if scrolling == False:
+        bgX = 0
+    if bgX == 0:
+        scrolling =True
+    window.blit(rocket, (x,y))
+    
+    y += moveY
+  
+    clock.tick(50) # muutes seda numbrit saab tõsta ja langetada kiirust ehk takti.
+    
+    pygame.display.flip()
+
+pygame.quit()
