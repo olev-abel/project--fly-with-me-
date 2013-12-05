@@ -1,0 +1,41 @@
+import pygame
+from math import *
+import random
+from pygame.locals import *
+pygame.init()
+
+window=pygame.display.set_mode((800,600))
+pygame.display.set_caption('window')
+FPS = 500
+FPSCLOCK = pygame.time.Clock()
+black = (0,0,0)
+white = (255,255,255)
+pause = False
+siinused=[]
+step=0
+AMPLITUDE=70
+WIN_CENTERY=260 # seda muutes muudad joone joonistamistkõrgust
+xPos=0
+loop = True
+while loop:
+    for event in pygame.event.get():
+        if event.type==pygame.QUIT:
+            loop = False 
+    window.fill(white)
+    yPos = -1 * sin(step) * AMPLITUDE
+    siinused.append((int(xPos), int(yPos) + WIN_CENTERY))
+    for x, y in siinused:
+        pygame.draw.circle(window, black, (x,y + WIN_CENTERY), 2)
+    pygame.display.update()
+    FPSCLOCK.tick(FPS)
+    if not pause:
+        xPos += 0.5
+        if xPos > 600:
+            xPos = 0
+            siinused=[]
+            step = 0
+        else:
+            step += 0.008
+            step %= 2 * pi
+    
+pygame.quit()
