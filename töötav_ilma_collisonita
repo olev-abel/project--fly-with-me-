@@ -20,6 +20,7 @@ rocket = pygame.image.load("Rocket.jpg")
 kivi=pygame.image.load("kivi1.png")
 # kivi saad siit, ma resizesin seda vähe http://img200.imageshack.us/img200/8732/rock2f.png
 # tausta saad siit: http://www.upload.ee/image/3709212/backround.png
+# http://www.upload.ee/image/3748255/minion_superman.png
 
 #rakett
 x, y = 100,100
