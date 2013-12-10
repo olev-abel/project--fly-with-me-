@@ -38,6 +38,7 @@ for i in range(2400):
     step %= 2 * pi
 
 
+
 loop = True
 while loop:
     #kontrollib, et aken poleks suletud.
@@ -46,8 +47,14 @@ while loop:
             loop = False
     #joonistab ülemise ja alumise seina.
     for i,j  in siinused:
-        pygame.draw.circle(window, black, (i,j + kõrgus), 2)
-        pygame.draw.circle(window, black, (i,j + kõrgus+320), 2)
+        pygame.draw.circle(window, black, (i,j + kõrgus), 5)
+        pygame.draw.circle(window, black, (i,j + kõrgus+320), 5)
+        if i == 100:
+            m = j
+            n = j+320
+    
+    
+    
     #tõstab siinuse väärtused ühe võrra listis edasi, et tekitada animatsioon. 
     muutuja=siinused[-1]
     for i in range(len(siinused)-1,-1,-1):
@@ -58,7 +65,7 @@ while loop:
             punkt=(siinused[i][0]-1,siinused[i][1])
             siinused[i] = punkt
     
-
+    
     #siinuse muutumine
     xPos += 0.5
     step += 0.008
@@ -79,9 +86,11 @@ while loop:
     for takistus in takistused:
         if takistus[0]<-50:
             takistused.pop(indeks)# võtab takistuse ära listist, kui takistuse x koordinaat on -50 väiksem ehk takistus kadunud
-        takistus[0]-=7
+        takistus[0]-=5
         indeks=1
-
+    print(takistused, y)
+    
+    
 
     for takistus in takistused:
         window.blit(kivi, takistus)
@@ -93,6 +102,16 @@ while loop:
         moveY = 3
     y += moveY      
     window.blit(minion, (x,y))
+    print(takistused, y)
+    
+    if m-3 < y-9 and m+3>y-9:
+        loop = False
+
+    if n-3 < y+9 and n+3>y+9:
+        loop = False
+    for i in takistused:
+        if i[0] == x and i[1] == y:
+            loop = False
     
     clock.tick(100) # muutes seda numbrit saab tõsta ja langetada kiirust ehk takti.
 
