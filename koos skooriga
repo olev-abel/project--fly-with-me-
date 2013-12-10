@@ -37,7 +37,7 @@ for i in range(2400):
     step += 0.01046
     step %= 2 * pi
 
-collision = False
+collision = True
 score=0
 loop = True
 while loop:
@@ -45,6 +45,8 @@ while loop:
     for event in pygame.event.get():
         if event.type==pygame.QUIT:
             loop = False
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            collision = False
     
     #joonistab ülemise ja alumise seina.
         
@@ -117,11 +119,20 @@ while loop:
     clock.tick(100) # muutes seda numbrit saab tõsta ja langetada kiirust ehk takti.
     #skoori kuvaja, kui kokkupõrge on toimunud
     if collision==True:
-        font = pygame.font.Font(None, 36)
-        text = font.render("Teie Skoor:" + str(score), 1, (255, 0, 0))
-        textpos = text.get_rect()
-        textpos.centerx = window.get_rect().centerx
-        textpos.centery=window.get_rect().centery
-        window.blit(text, textpos)
+        if score != 0:
+            font = pygame.font.Font(None, 36)
+            text = font.render("Teie Skoor: " + str(score), 1, (255, 0, 0))
+            textpos = text.get_rect()
+            textpos.centerx = window.get_rect().centerx
+            textpos.centery=window.get_rect().centery
+            window.blit(text, textpos)
+        else:
+            font = pygame.font.Font(None, 36)
+            text = font.render("Alustamiseks klõpsa hiirel", 1, (255, 0, 0))
+            textpos = text.get_rect()
+            textpos.centerx = window.get_rect().centerx
+            textpos.centery=window.get_rect().centery
+            window.blit(text, textpos)
+            
 
 pygame.quit()
