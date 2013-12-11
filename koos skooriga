@@ -52,7 +52,7 @@ loop = True
 
 #Heli
 pygame.mixer.music.load("Eye Of The Tiger.ogg")
-
+# tümmi saad siit http://www.upload.ee/files/3758488/Eye_Of_The_Tiger.ogg.html
 while loop:
     
     #kontrollib, et aken poleks suletud.
