@@ -1,6 +1,7 @@
 import pygame
 from math import *
 import random
+import time
 pygame.init()
 #Tausta loomine
 window=pygame.display.set_mode((800,400))
@@ -22,6 +23,10 @@ kivi=pygame.image.load("kivi.png")
 x, y = 100,130
 moveX, moveY= 0,0
 
+keys = pygame.key.get_pressed()
+if keys[pygame.K_RETURN]:
+    init_game()
+    
 #taust
 siinused=[]
 step=0
@@ -36,7 +41,7 @@ for i in range(2400):
     xPos += 0.5
     step += 0.01046
     step %= 2 * pi
-
+põrge=False
 collision = True
 score=0
 loop = True
@@ -47,18 +52,20 @@ while loop:
             loop = False
         if event.type == pygame.MOUSEBUTTONDOWN:
             collision = False
+        
+        
     
     #joonistab ülemise ja alumise seina.
         
     for i,j  in siinused:
-        pygame.draw.circle(window, black, (i,j + kõrgus), 5)
+        pygame.draw.circle(window, black, (i,j + kõrgus),5)
         pygame.draw.circle(window, black, (i,j + kõrgus+320), 5)
         if i == 100:
             m = j
             n = j+320
 
     #tõstab siinuse väärtused ühe võrra listis edasi, et tekitada animatsioon. 
-    if collision == False:
+    if collision == False and põrge==False:
         muutuja=siinused[-1]
         for i in range(len(siinused)-1,-1,-1):
             if siinused[i][0]==0:
@@ -77,7 +84,7 @@ while loop:
     window.fill((0,0,255))#Taustavärv
 
     #Takistused
-    if collision == False:
+    if collision == False and põrge==False:
         takistused_kell-=1#et takistused tuleksid koguaeg kindla aja tagant
         if takistused_kell==0:
             takistused.append([800, random.randint(50,245)])#listi panek y random
@@ -97,7 +104,7 @@ while loop:
         window.blit(kivi, takistus)
     
     # minioni liigutamine
-    if collision == False:
+    if collision == False and põrge==False:
         if event.type == pygame.MOUSEBUTTONDOWN:
             moveY = -3
         if event.type == pygame.MOUSEBUTTONUP:
@@ -114,7 +121,7 @@ while loop:
             if i[1]+60>= y and i[1]-5 <= y:
                 collision = True
     #skoori arvutaja            
-    if collision==False:
+    if collision==False and põrge==False:
         score +=1
     clock.tick(100) # muutes seda numbrit saab tõsta ja langetada kiirust ehk takti.
     #skoori kuvaja, kui kokkupõrge on toimunud
@@ -126,6 +133,9 @@ while loop:
             textpos.centerx = window.get_rect().centerx
             textpos.centery=window.get_rect().centery
             window.blit(text, textpos)
+            põrge=True
+            
+            
         else:
             font = pygame.font.Font(None, 36)
             text = font.render("Alustamiseks klõpsa hiirel", 1, (255, 0, 0))
@@ -134,5 +144,5 @@ while loop:
             textpos.centery=window.get_rect().centery
             window.blit(text, textpos)
             
-
+    
 pygame.quit()
