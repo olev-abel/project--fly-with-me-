@@ -24,6 +24,7 @@ blue = (0,0,255)
 #pildid
 minion = pygame.image.load("minion.png")
 kivi=pygame.image.load("kivi.png")
+## http://www.upload.ee/image/3758543/kivi.png
 
 #minion
 x, y = 100,130
@@ -51,7 +52,7 @@ collision = True
 loop = True
 
 #Heli
-pygame.mixer.music.load("Eye Of The Tiger.ogg")
+pygame.mixer.music.load("Eye_Of_The_Tiger.ogg")
 # tümmi saad siit http://www.upload.ee/files/3758488/Eye_Of_The_Tiger.ogg.html
 while loop:
     
@@ -101,7 +102,7 @@ while loop:
         takistused_kell-=1#et takistused tuleksid koguaeg kindla aja tagant
         if takistused_kell==0:
             takistused.append([800, random.randint(50,245)])#listi panek
-            takistused_kell=120-(takistused_kell1*2)# takistuste ilmumiskiirus
+            takistused_kell=120-(takistused_kell1*2.6)# takistuste ilmumiskiirus
             if takistused_kell1>=35:
                 takistused_kell1=35
             else:
@@ -132,7 +133,7 @@ while loop:
     window.blit(minion, (x,y))
     #kokkupõrke kontroll kividega
     for i in takistused:
-        if i[0] >= 100 and i[0] <= 110:
+        if i[0] >= 50 and i[0] <= 110:
             if i[1]+60>= y and i[1]-5 <= y:
                 collision = True
     #skoori arvutaja            
